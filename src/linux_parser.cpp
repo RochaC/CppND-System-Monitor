@@ -118,8 +118,17 @@ long int LinuxParser::UpTime() {
     return std::stol(values[0]);
 }
 
-// TODO: Read and return the number of jiffies for the system
-long LinuxParser::Jiffies() { return 0; }
+// Read and return the number of jiffies for the system
+long LinuxParser::Jiffies() {
+    vector<string> values = CpuUtilization();
+    long result = 0;
+
+    for(auto time: values) {
+        result += stol(time);
+    }
+
+    return result;
+}
 
 // TODO: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function

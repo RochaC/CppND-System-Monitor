@@ -14,7 +14,7 @@ using std::vector;
 int Process::Pid() { return pid_; }
 
 // Return this process's CPU utilization
-float Process::CpuUtilization() {
+float Process::CpuUtilization() const {
     string line;
     string value;
     float result;
@@ -37,7 +37,7 @@ float Process::CpuUtilization() {
     float seconds = uptime - (starttime / freq);
     result = (float) 100.0 * ((total_time / freq) / seconds);
 
-    return  result;
+    return result;
 }
 
 // Return the command that generated this process
@@ -52,6 +52,10 @@ string Process::User() { return LinuxParser::User(pid_); }
 // Return the age of this process (in seconds)
 long int Process::UpTime() { return LinuxParser::UpTime(pid_); }
 
-// TODO: Overload the "less than" comparison operator for Process objects
-// REMOVE: [[maybe_unused]] once you define the function
-bool Process::operator<(Process const &a[[maybe_unused]]) const { return true; }
+// Overload the "less than" comparison operator for Process objects
+bool Process::operator<(Process const &a) const {
+    const float cpu1 = CpuUtilization();
+    float cpu2 = a.CpuUtilization();
+
+    return cpu1 < cpu2;
+}
