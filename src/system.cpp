@@ -44,7 +44,7 @@ int System::TotalProcesses() {
 }
 
 // Return the number of seconds since the system started running
-long System::UpTime() { return LinuxParser::UpTime(); }
+long int System::UpTime() { return LinuxParser::UpTime(); }
 
 void System::RefreshList() {
     vector<int> pids = LinuxParser::Pids();

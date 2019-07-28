@@ -81,8 +81,8 @@ float LinuxParser::MemoryUtilization() {
     float buffers = 0;
 
 
-    while(getline(filestream, line)) {
-        if(total_mem != 0 && free_mem != 0 && buffers != 0)
+    while (getline(filestream, line)) {
+        if (total_mem != 0 && free_mem != 0 && buffers != 0)
             break;
         if (line.compare(0, name0.size(), name0) == 0) {
             std::istringstream buf(line);
@@ -103,11 +103,11 @@ float LinuxParser::MemoryUtilization() {
             buffers = stof(values[1]);
         }
     }
-    return float(100.0*(1-(free_mem/(total_mem-buffers))));
+    return float(1 - (free_mem / (total_mem - buffers)));
 }
 
 //  Read and return the system uptime
-long LinuxParser::UpTime() {
+long int LinuxParser::UpTime() {
     string line;
     std::ifstream filestream(kProcDirectory + kUptimeFilename);
     std::getline(filestream, line);
@@ -151,8 +151,8 @@ vector<string> LinuxParser::CpuUtilization() {
     string name = "cpu";
     std::ifstream filestream(kProcDirectory + kStatFilename);
 
-    while(std::getline(filestream, line)) {
-        if(line.compare(0, name.size(), name) == 0) {
+    while (std::getline(filestream, line)) {
+        if (line.compare(0, name.size(), name) == 0) {
             std::istringstream buf(line);
             std::istream_iterator<string> beg(buf), end;
             vector<string> values(beg++, end);
@@ -171,8 +171,8 @@ int LinuxParser::TotalProcesses() {
     string name = "processes";
     std::ifstream filestream(kProcDirectory + kStatFilename);
 
-    while(getline(filestream, line)) {
-        if(line.compare(0, name.size(), name) == 0) {
+    while (getline(filestream, line)) {
+        if (line.compare(0, name.size(), name) == 0) {
             std::istringstream buf(line);
             std::istream_iterator<string> beg(buf), end;
             vector<string> values(beg, end);
@@ -191,8 +191,8 @@ int LinuxParser::RunningProcesses() {
     string name = "procs_running";
     std::ifstream filestream(kProcDirectory + kStatFilename);
 
-    while(getline(filestream, line)) {
-        if(line.compare(0, name.size(), name) == 0) {
+    while (getline(filestream, line)) {
+        if (line.compare(0, name.size(), name) == 0) {
             std::istringstream buf(line);
             std::istream_iterator<string> beg(buf), end;
             vector<string> values(beg, end);
@@ -260,8 +260,8 @@ string LinuxParser::User(int pid) {
     string result;
     string line;
 
-    while (getline(filestream, line)){
-        if(line.find(name) != string::npos)
+    while (getline(filestream, line)) {
+        if (line.find(name) != string::npos)
             result = line.substr(0, line.find(':'));
     }
 

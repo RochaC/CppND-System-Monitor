@@ -4,8 +4,15 @@
 
 using std::string;
 
-// TODO: Complete this helper function
 // INPUT: Long int measuring seconds
 // OUTPUT: HH:MM:SS
-// REMOVE: [[maybe_unused]] once you define the function
-string Format::ElapsedTime(long seconds[[maybe_unused]]) { return string(); }
+string Format::ElapsedTime(long seconds) {
+    long minutes = seconds / 60;
+    long hour = minutes / 60;
+    long second = int(seconds % 60);
+    long minute = int(minutes % 60);
+
+    string str = string(std::to_string(hour) + ":" + std::to_string(minute) + ":" + std::to_string(second));
+
+    return str;
+}

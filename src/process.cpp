@@ -18,7 +18,7 @@ float Process::CpuUtilization() {
     string line;
     string value;
     float result;
-    std::ifstream filestream(LinuxParser::kProcDirectory + pid_ + LinuxParser::kStatFilename);
+    std::ifstream filestream(LinuxParser::kProcDirectory + std::to_string(pid_) + LinuxParser::kStatFilename);
     getline(filestream, line);
     string str = line;
     std::istringstream buf(str);
