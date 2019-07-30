@@ -160,7 +160,7 @@ vector<string> LinuxParser::CpuUtilization() {
         if (line.compare(0, name.size(), name) == 0) {
             std::istringstream buf(line);
             std::istream_iterator<string> beg(buf), end;
-            vector<string> values(beg++, end);
+            vector<string> values(++beg, end);
 
             return values;
         }
